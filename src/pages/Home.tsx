@@ -80,7 +80,7 @@ export default function Home() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
 
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState<string | null>(null);
+  const [, setError]     = useState<string | null>(null);
 
   const { user, isAuthenticated } = useAuth();
 

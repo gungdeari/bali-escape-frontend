@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# BaliEscape
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack travel booking web app for discovering and booking curated travel packages across Bali.
 
-Currently, two official plugins are available:
+**Live demo:** `https://bali-escape.vercel.app`
+**Backend repo:** [bali-escape-api](https://github.com/gungdeari/bali-escape-api)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React 18 + TypeScript
+- **Styling:** Tailwind CSS
+- **Routing:** React Router v6
+- **HTTP Client:** Axios
+- **UI Components:** shadcn/ui
+- **Icons:** Lucide React
+- **Build tool:** Vite
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### For travelers
+- Browse curated Bali travel packages with search, filters, and sorting
+- View package details with image galleries and ratings
+- Multi-step booking flow with quantity selection
+- Manual payment with proof-of-payment upload (bank transfer / e-wallet)
+- Track booking status in real time (pending → waiting confirmation → confirmed)
+- Download invoice PDF after confirmed payment
+- Leave star ratings and written reviews on booked packages
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### For admins
+- Dashboard with booking stats and revenue overview
+- Review uploaded payment proofs
+- Confirm or cancel pending bookings
+- Filter bookings by status
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Engineering highlights
+- Role-based protected routing (`ProtectedRoute`, `PublicRoute`, `AdminRoute`)
+- Token-based auth with persistent session across page refreshes
+- Optimistic UI updates (e.g. reviews appear instantly on submit)
+- Consistent loading / error / empty states across all data-fetching views
+- Fully typed API layer with TypeScript
+
+---
+
+## Project Structure
+src/
+├── api/            # All API calls, grouped by resource
+├── components/      # Reusable UI building blocks
+├── contexts/         # Global state (AuthContext)
+├── pages/             # Route-level page components
+│   ├── auth/
+│   └── admin/
+├── routes/             # Route definitions + access control
+└── services/            # Thin wrappers around auth API calls
+
+---
+
+## Local Development Setup
+
+### Prerequisites
+
+- Node.js 18+
+- The [bali-escape-api](https://github.com/yourusername/bali-escape-api) backend running locally
+
+### Setup
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/yourusername/bali-escape-frontend.git
+cd bali-escape-frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Copy environment file
+cp .env.example .env
+
+# 4. Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app runs at `http://localhost:5173`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Environment Variables
+
+```env
+VITE_API_URL=http://localhost:8000/api/v1
 ```
+
+For production, set this to your deployed backend URL (e.g. the Railway domain).
+
+---
+
+## Test Accounts
+
+Use these once the backend is seeded:
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@mail.com | password |
+| User | user@trvl.com | password |
+
+---
+
+## Deployment
+
+Deployed on 
